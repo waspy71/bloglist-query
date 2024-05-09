@@ -5,7 +5,7 @@ import blogService from './services/blogs'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
-import { useNotify } from '../reducers/notificationReducer'
+import { useNotify } from './reducers/notificationReducer'
 
 
 const App = () => {

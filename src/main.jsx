@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import { NotificationContextProvider } from '../reducers/notificationReducer'
+import { NotificationContextProvider } from './reducers/notificationReducer'
 
 
 

@@ -1,5 +1,5 @@
 
-import { useNotificationValue } from '../../reducers/notificationReducer'
+import { useNotificationValue } from '../reducers/notificationReducer'
 
 
 const Notification = () => {

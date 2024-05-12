@@ -7,10 +7,13 @@ import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 import { useNotify } from './reducers/notificationReducer'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useUserLogout, useUserSet, useUserValue } from './reducers/userReducer'
 
 
 const App = () => {
-  const [user, setUser] = useState(null)
+  const user = useUserValue()
+  const setUser = useUserSet()
+  const clearUser = useUserLogout()
 
   const blogsData = useQuery({
     queryKey: ['blogs'],
@@ -24,13 +27,8 @@ const App = () => {
   const queryClient = useQueryClient()
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
-    if( loggedUserJSON ) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-      blogService.setToken(user.token)
-    }
-  }, [])
+    setUser()
+  },[])
 
   const createBlogMutation = useMutation({
     mutationFn: create,
@@ -70,8 +68,7 @@ const App = () => {
   })
 
   const logoutUser = () => {
-    setUser(null)
-    window.localStorage.clear()
+    clearUser()
   }
 
   const blogForm = () => (
@@ -100,7 +97,7 @@ const App = () => {
     <div>
       <Notification />
       { user === null &&
-      <LoginForm setUser={setUser} notificationHandler={notificationHandler} /> }
+      <LoginForm notificationHandler={notificationHandler} /> }
       {user !== null &&
       <div>
         <h2>Blogs</h2>
